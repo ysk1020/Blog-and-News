@@ -9,7 +9,8 @@
       width: {
         custom: 'clamp(30rem, 43cqi, 40%)',
         blog:'clamp(20rem, 27cqi, 28%)',
-        headline:'clamp(1.5rem,1.8cqi,3rem)'
+        headline:'clamp(1.5rem,1.8cqi,3rem)',
+        locationInput: 'clamp(15rem, 14cq, 25rem)',
       },
     },
   },

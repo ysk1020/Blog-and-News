@@ -29,13 +29,13 @@ const News = () => {
 
                 setHeadline(fetchedNews[0])
                 setNewsGrid(fetchedNews.slice(1, 7))
-                console.log(newGrid)
+
             } catch (error) {
                 console.error('Failed to fetch news:', error)
             }
         };
         fetchNews()
-    }, [newGrid]);
+    }, []);
 
 
     function handleArticleClick(article) {
@@ -52,7 +52,7 @@ const News = () => {
                     <label className="sr-only">Search</label>
                     <div className=" flex items-center bg-gray-800 rounded-full px-3 py-1 w-full max-w-md">
                         <input type='email' placeholder='Search' className="w-full outline-none bg-gray-800 pl-4 text-md" />
-                        <button type='button' className=" p-2  text-gray-400 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-full">
+                        <button type='button' className="p-2 text-gray-400 hover:text-gray-200 cursor-pointer hover:ring-2 hover:ring-purple-500 rounded-full">
                             <svg className='w-10 h-10'
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -90,7 +90,7 @@ const News = () => {
                 {/* CATEGORIES */}
                 <div className="w-full h-[calc(80%-2rem)] bg-[#111214] rounded-2xl">
                     <h2 className='text-md font-extrabold text-gray-300 uppercase tracking-wider text-center m-4'>Categories</h2>
-                    <ul className='text-gray-400 m-5 p-5 border-t space-y-5'>
+                    <ul className='text-gray-400 m-5 p-5 border-t space-y-5 cursor-pointer'>
                         <li className=" text-[1.5rem] hover:text-purple-400 cursor-pointer">General</li>
                         <li className="text-[1.5rem] hover:text-purple-400 cursor-pointer ">World</li>
                         <li className="text-[1.5rem] hover:text-purple-400 cursor-pointer">Business</li>
@@ -116,7 +116,7 @@ const News = () => {
 
             <div className="w-custom h-full rounded-2xl">
                 {/* HEADLINE */}
-                {headline && <div className="h-[calc(50%-2rem)] bg-[#111214] rounded-2xl mb-8 overflow-hidden transition relative"
+                {headline && <div className="h-[calc(50%-2rem)] bg-[#111214] rounded-2xl mb-8 overflow-hidden transition relative cursor-pointer"
                     onClick={() => handleArticleClick(headline)}>
                     <img src={headline.image} alt={headline.description} className='relative w-full h-full object-cover border-inherit rounded-2xl' />
                     <h3 className="absolute w-full px-[1rem] py-[1rem] pr-[4rem] font-['Bebas Neue','sans-serif'] text-headline tracking-[0.1rem] text-white bg-black/70 rounded-md -translate-y-[7.5rem]">
