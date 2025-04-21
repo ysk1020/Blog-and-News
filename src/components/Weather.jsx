@@ -54,15 +54,24 @@ function Weather() {
         getCurrentLocation();
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            fetchWeatherByCity(city)
+                .then(setWeatherData)
+                .catch((error) => console.error(error));
+        }
+    }
+
     return (
-        <div className='w-full min-w-[28rem] h-[calc(55%-2rem)] bg-[#111214] rounded-2xl p-[2rem_1.5rem] flex flex-col justify-center items-center gap-y-[3rem]' >
+        <div className='w-full min-w-[28rem] h-[calc(45%-1rem)] bg-[#111214] rounded-2xl p-[2rem_1.5rem] flex flex-col justify-center items-center gap-y-[3rem]' >
             {weatherData ? (<>
                 <div className="flex flex-col gap-y-[1rem]">
                     <div className="flex items-center gap-[1rem]">
                         <button
                             type='button'
                             className=" p-1 hover:text-gray-200 cursor-pointer hover:ring-2 hover:ring-purple-500 rounded-full"
-                            onClick={handleCurrentLocation}>
+                            onClick={handleCurrentLocation}
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -77,7 +86,12 @@ function Weather() {
                         <div className="font-['comfortaa','sans-serif'] text-[2rem] font-bold text-[#fff]">{weatherData.name}</div>
                     </div>
                     <div className="relative">
-                        <input type="text" placeholder='Tell me where' className="search-input w-locationInput h-[3rem] bg-transparent border-b-2 border-indigo-500 text-[#ddd]" value={city} onChange={(e) => setCity(e.target.value)} />
+                        <input type="text"
+                            placeholder='Tell me where'
+                            className="search-input w-locationInput h-[3rem] bg-transparent border-b-2 border-indigo-500 text-[#ddd]"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            onKeyDown={handleKeyDown} />
                         <button type='button' className=" absolute top-2 right-1 text-gray-400 hover:text-gray-200 cursor-pointer" onClick={handleSearch}>
                             <svg className='w-10 h-10'
                                 xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +109,7 @@ function Weather() {
                     <img
                         src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
                         alt="Weather icon"
-                        className="w-20 h-20 rounded-full object-cover ring-2 ring-purple-500 "
+                        className="w-16 h-16"
                     />
                     <div className="font-['comfortaa','sans-serif'] text-[2rem] font-bold text-[#ddd]">
                         {capitalize(weatherData.weather[0].description.toString())}
@@ -107,8 +121,7 @@ function Weather() {
                 </div>
             </>) : (
                 <div className="text-white text-xl animate-pulse">Fetching Weather...</div>
-            )
-            }
+            )}
         </div >
     )
 }

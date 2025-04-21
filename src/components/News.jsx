@@ -7,6 +7,7 @@ import Weather from './Weather'
 import Calendar from './Calendar'
 
 import noImg from '../assets/image-block_15841194.png'
+import github from '../assets/github-mark-white.svg'
 
 const News = () => {
     const [headline, setHeadline] = useState(null);
@@ -51,7 +52,7 @@ const News = () => {
                 <form className="flex items-center max-w-md mx-auto ">
                     <label className="sr-only">Search</label>
                     <div className=" flex items-center bg-gray-800 rounded-full px-3 py-1 w-full max-w-md">
-                        <input type='email' placeholder='Search' className="w-full outline-none bg-gray-800 pl-4 text-md" />
+                        <input type='text' placeholder='Search' className="w-full outline-none bg-gray-800 pl-4 text-md" />
                         <button type='button' className="p-2 text-gray-400 hover:text-gray-200 cursor-pointer hover:ring-2 hover:ring-purple-500 rounded-full">
                             <svg className='w-10 h-10'
                                 xmlns="http://www.w3.org/2000/svg"
@@ -67,43 +68,48 @@ const News = () => {
                 </form>
             </div>
         </header >
-        <div className="flex gap-x-8 gap-y-4 h-[calc(100%-16rem)] px-8 py-[2rem]">
+        <div className="flex lg:flex-row gap-x-8 gap-y-4 h-[calc(100%-12rem)] px-8 py-[2rem]">
             {/* SIDE BAR */}
 
-            <div className="w-[18rem] h-full flex flex-col gap-y-8">
+            <div className="w-full lg:w-[18rem] flex-shrink-0 h-full flex flex-col gap-y-8">
                 {/* USER */}
-                <div className="flex flex-col w-full h-1/4 bg-[#111214] rounded-2xl">
-                    <div className="place-items-center p-1 m-2 ">
-                        <img
-                            src="https://images.unsplash.com/photo-1592621385612-4d7129426394?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="User avatar"
-                            className='flex w-20 h-20 rounded-full object-cover ring-2 ring-purple-500 ' />
-                    </div>
-                    <div className="text-center">
-                        <h2 className="text-md font-semibold">Mary Stone</h2>
-                    </div>
-                    <div className="w-full border-t border-gray-700 pt-2 text-sm text-gray-500 text-center">
+                < div className="flex flex-col p-4 w-full h-1/4 bg-[#111214] rounded-2xl items-center shadow">
+                    <img
+                        src="https://images.unsplash.com/photo-1592621385612-4d7129426394?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="User avatar"
+                        className='flex w-20 h-20 rounded-full object-cover ring-2 ring-purple-500 m-3' />
+                    <h2 className="text-md font-semibold">Mary Stone</h2>
+                    <div className="w-full border-t border-gray-700 pt-2 text-sm text-gray-500 ">
                         Last Login: 2h ago
                     </div>
                 </div>
 
                 {/* CATEGORIES */}
-                <div className="w-full h-[calc(80%-2rem)] bg-[#111214] rounded-2xl">
+                <div className="w-full h-[calc(75%-2rem)] bg-[#111214] rounded-2xl">
                     <h2 className='text-md font-extrabold text-gray-300 uppercase tracking-wider text-center m-4'>Categories</h2>
-                    <ul className='text-gray-400 m-5 p-5 border-t space-y-5 cursor-pointer'>
-                        <li className=" text-[1.5rem] hover:text-purple-400 cursor-pointer">General</li>
-                        <li className="text-[1.5rem] hover:text-purple-400 cursor-pointer ">World</li>
-                        <li className="text-[1.5rem] hover:text-purple-400 cursor-pointer">Business</li>
-                        <li className="text-[1.5rem] hover:text-purple-400 cursor-pointer">Technology</li>
-                        <li className="text-[1.5rem] hover:text-purple-400 cursor-pointer">Entertainment</li>
-                        <li className="text-[1.5rem] hover:text-purple-400 cursor-pointer">Sports</li>
-                        <li className="text-[1.5rem] hover:text-purple-400 cursor-pointer">Science</li>
-                        <li className="text-[1.5rem] hover:text-purple-400 cursor-pointer">Health</li>
-                        <li className="text-[1.5rem] hover:text-purple-400 cursor-pointer">Nation</li>
-                        <li className="text-[1.5rem] flex items-center gap-2 hover:text-purple-400 cursor-pointer">
+                    <ul className="text-gray-400 px-6 py-4 space-y-4">
+                        {[
+                            'General',
+                            'World',
+                            'Business',
+                            'Technology',
+                            'Entertainment',
+                            'Sports',
+                            'Science',
+                            'Health',
+                            'Nation'
+                        ].map((cat) => (
+                            <li
+                                key={cat}
+                                className="text-[1.5rem] hover:text-purple-400 cursor-pointer transition-colors"
+                            >
+                                {cat}
+                            </li>
+                        ))}
+                        <li className="flex items-center gap-2 text-[1.5rem] hover:text-purple-400 cursor-pointer transition-colors">
                             Bookmarks
                             <svg
-                                className="w-4 h-4 text-gray-400 group-hover:text-purple-400"
+                                className="w-5 h-5 text-gray-400 group-hover:text-purple-400"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                             >
@@ -118,7 +124,7 @@ const News = () => {
                 {/* HEADLINE */}
                 {headline && <div className="h-[calc(50%-2rem)] bg-[#111214] rounded-2xl mb-8 overflow-hidden transition relative cursor-pointer"
                     onClick={() => handleArticleClick(headline)}>
-                    <img src={headline.image} alt={headline.description} className='relative w-full h-full object-cover border-inherit rounded-2xl' />
+                    <img src={headline.image ? headline.image : noImg} alt={headline.description} className='relative w-full h-full object-cover border-inherit rounded-2xl' />
                     <h3 className="absolute w-full px-[1rem] py-[1rem] pr-[4rem] font-['Bebas Neue','sans-serif'] text-headline tracking-[0.1rem] text-white bg-black/70 rounded-md -translate-y-[7.5rem]">
                         {headline.title}
                         <svg
@@ -135,7 +141,7 @@ const News = () => {
                 <div className="w-full h-1/2 bg-[#111214] rounded-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {
                         newGrid && newGrid.map((news, index) => (
-                            <NewsGrid key={index} image={news.image} title={news.title} onClick={() => handleArticleClick(news)} />
+                            <NewsGrid key={index} image={news.image ? news.image : noImg} title={news.title} onClick={() => handleArticleClick(news)} />
                         ))}
                 </div>
             </div>
@@ -147,16 +153,24 @@ const News = () => {
             </div>
 
             {/* WIDGETS */}
-            <div className="flex-[1] flex flex-col gap-y-8">
-                <Weather />
+            <div className="flex flex-col gap-y-8">
                 <Calendar />
+                <Weather />
             </div>
         </div>
 
         {/* FOOTER */}
-        <footer className='w-full min-h-[8.5rem] bg-[#111214] rounded-tl-[0] rounded-br-2xl rounded-tr-[0] rounded-bl-2xl'>
-            Footer
+        <footer className="w-full bg-[#111214] rounded-tl-none rounded-tr-none rounded-br-2xl rounded-bl-2xl py-6 px-4">
+            <div className="max-w-7xl mx-auto flex md:flex-wrap sm:flex-row items-center justify-center sm:justify-between text-sm gap-4">
+                <a href="https://github.com/ysk1020/Blog-and-News" className="inline-block hover:text-white">
+                    <img src={github} alt="GitHub logo" className="w-6 h-6 sm:mx-0" />
+                </a>
+                <p>&copy; 2025 Write & Read. All rights reserved.</p>
+                <p>Created by <span className="text-purple-400 font-semibold">Yussuf Uali</span></p>
+
+            </div>
         </footer>
+
     </div >
 
 }
