@@ -2,7 +2,7 @@
 
 Welcome to **Write & Read**, a modern and responsive blog + news dashboard built with **React**, **Tailwind CSS**, and **Vite**. This project combines live news updates, personal blog posting, and elegant UI to create an immersive reading and writing experience.
 
-![Dashboard Preview](./public/screenshots/image.png)
+![Dashboard Preview](./public/screenshots/overall.png)
 
 ---
 
@@ -36,11 +36,11 @@ Welcome to **Write & Read**, a modern and responsive blog + news dashboard built
 
 ### Blog View
 
-![Blog Cards](./public/screenshots/newpost.png)
+![Blog Cards](./public/screenshots/image.png)
 
 ### News + Calendar View
 
-![News Layout](./public/screenshots/image.png)
+![News Layout](./public/screenshots/overall.png)
 
 ### Create Blog Modal
 
