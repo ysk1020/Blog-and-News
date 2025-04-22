@@ -3,7 +3,7 @@ import React from 'react'
 function NewsGrid({ image, title, onClick }) {
     return (
 
-        <div className="bg-[#111214] rounded-xl overflow-hidden shadow-md hover:shadow-lg transition cursor-pointer"
+        <div className="bg-[#111214] bg-opacity-25 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition cursor-pointer"
             onClick={onClick}>
             <img src={image} alt={title} className="w-full h-40 object-cover" />
             <div className="p-4 text-white">

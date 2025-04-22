@@ -18,7 +18,7 @@ function CustomCalendar() {
     });
 
     return (
-        <div className='w-full h-[calc(70%-9rem)] bg-[#111214] rounded-2xl'>
+        <div className='w-full h-[calc(70%-9rem)] bg-[#111214] bg-opacity-25 rounded-2xl'>
             <ThemeProvider theme={lightTheme}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateCalendar />
