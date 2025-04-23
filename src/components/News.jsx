@@ -14,6 +14,8 @@ import knight from '../assets/knight.jpg'
 const News = ({ onShowBlogs, blogs, onEdit, onDelete }) => {
     const [headline, setHeadline] = useState(null);
     const [newGrid, setNewsGrid] = useState([]);
+    const [category, setCategory] = useState('general')
+    const [searchQuery, setSearchQuery] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [selectedArt, setSelectedArt] = useState(null);
     const [selectedBlog, setSelectedBlog] = useState(null);
@@ -21,7 +23,7 @@ const News = ({ onShowBlogs, blogs, onEdit, onDelete }) => {
 
     useEffect(() => {
         const fetchNews = async () => {
-            const url = `https://gnews.io/api/v4/top-headlines?category=general&lang=en&apikey=${import.meta.env.VITE_NEWS_KEY}`
+            const url = `https://gnews.io/api/v4/top-headlines?category=${category.toLowerCase()}&lang=en&apikey=${import.meta.env.VITE_NEWS_KEY}`
             try {
                 const response = await axios.get(url)
                 const fetchedNews = response.data.articles
@@ -40,7 +42,23 @@ const News = ({ onShowBlogs, blogs, onEdit, onDelete }) => {
             }
         };
         fetchNews()
-    }, []);
+    }, [category]);
+
+    const handleSearch = async () => {
+        if (!searchQuery.trim()) return;
+        const url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(searchQuery)}&lang=en&apikey=${import.meta.env.VITE_NEWS_KEY}`;
+        try {
+            const response = await axios.get(url);
+            const fetchedNews = response.data.articles.map((article) => ({
+                ...article,
+                image: article.image || noImg,
+            }));
+            setHeadline(fetchedNews[0]);
+            setNewsGrid(fetchedNews.slice(1, 7));
+        } catch (error) {
+            console.error('Failed to fetch search results:', error);
+        }
+    };
 
 
     function handleArticleClick(article) {
@@ -58,8 +76,21 @@ const News = ({ onShowBlogs, blogs, onEdit, onDelete }) => {
                 <form className="flex items-center max-w-md mx-auto ">
                     <label className="sr-only">Search</label>
                     <div className=" flex items-center bg-gray-800 bg-opacity-25 rounded-full px-3 py-1 w-full max-w-md">
-                        <input type='text' placeholder='Search' className="w-full outline-none bg-gray-800 bg-opacity-5 pl-4 text-md" />
-                        <button type='button' className="p-2 text-gray-400 hover:text-gray-200 cursor-pointer hover:ring-2 hover:ring-purple-500 rounded-full">
+                        <input type='text'
+                            placeholder='Search'
+                            className="w-full outline-none bg-gray-800 bg-opacity-5 pl-4 text-md"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') handleSearch();
+                            }}
+                        />
+                        <button type='button'
+                            onClick={
+                                handleSearch
+                            }
+                            className="p-2 text-gray-400 hover:text-gray-200 cursor-pointer hover:ring-2 hover:ring-purple-500 rounded-full"
+                        >
                             <i className='bx bx-search-alt-2 '></i>
                         </button>
                     </div>
@@ -100,7 +131,8 @@ const News = ({ onShowBlogs, blogs, onEdit, onDelete }) => {
                         ].map((cat) => (
                             <li
                                 key={cat}
-                                className="text-[1.5rem] hover:text-purple-400 cursor-pointer transition-colors"
+                                onClick={() => setCategory(cat)}
+                                className={`text-[1.5rem] hover:text-purple-400 cursor-pointer transition-colors ${category === cat ? 'text-purple-500 font-bold' : ''}`}
                             >
                                 {cat}
                             </li>
